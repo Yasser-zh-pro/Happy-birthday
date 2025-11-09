@@ -34,11 +34,11 @@
         --color-border: #DACCBF;
         
         /* ====== أحجام الصور القابلة للتعديل بسهولة ====== */
-        --ribbon-size: 150px;
+        --ribbon-size: 90px;
         --balloon-size: 40px;
         --smiley-size: 25px;
         --bubble-size: 20px;
-        --hat-size: 5px;
+        --hat-size: 45px;
         --profile-size: 140px;
         --circle-size: 50px;
     }
@@ -203,7 +203,7 @@
     
     /* ====== تحسين توزيع الصور والزخارف ====== */
     
-    /* شريط الزينة المثلثي في الأعلى - حجم صغير في الزوايا */
+    /* شريط الزينة المثلثي في الأعلى - حجم صغير في الزوايا وملتصق تماماً */
     .ribbon-container {
         position: absolute;
         top: 0;
@@ -231,11 +231,11 @@
     }
     
     .ribbon-left {
-        transform: rotate(-10deg) translate(-5px, 5px);
+        transform: rotate(-10deg) translate(-10px, 0);
     }
     
     .ribbon-right {
-        transform: rotate(10deg) translate(5px, 5px) scaleX(-1);
+        transform: rotate(10deg) translate(10px, 0) scaleX(-1);
         justify-content: flex-end;
     }
     
@@ -398,17 +398,18 @@
         color: var(--color-text-pink);
     }
 
-    /* تحسين القبعة - حجم صغير */
+    /* إصلاح مشكلة القبعة - استخدام var(--hat-size) بشكل صحيح */
     .title .hat{
         position: absolute;
         right: 10px;
-        top: -25px;
+        top: -35px;
         transform: rotate(-40deg);
         z-index: -1;
         animation: topHat 4s 7s forwards ease;
-        width: var(--hat-size);
+        width: var(--hat-size) !important;
         height: auto;
     }
+    
     @keyframes topHat{
         20%, 30%{
             top: -8px;
@@ -584,14 +585,14 @@
     
     .balloon.balloon_one {
         animation: balloon1 2s infinite linear;
-        margin-right: 5px;
-        margin-top: -10px;
+        margin-right: 0;
+        margin-top: -15px;
     }
     
     .balloon.balloon_two {
         animation: balloon2 2s infinite linear;
-        margin-right: 10px;
-        margin-top: 5px;
+        margin-right: 5px;
+        margin-top: 10px;
     }
     
     @keyframes balloon1{
@@ -643,8 +644,8 @@
         height: var(--smiley-size);
         display: flex;
         justify-content: flex-start;
-        margin-left: -5px;
-        margin-top: -10px;
+        margin-left: -15px;
+        margin-top: -15px;
     }
     
     .smiley-face img {
@@ -659,8 +660,8 @@
         height: var(--bubble-size);
         display: flex;
         justify-content: flex-end;
-        margin-right: -5px;
-        margin-top: -15px;
+        margin-right: -15px;
+        margin-top: -20px;
     }
     
     .speech-bubble img {
@@ -748,11 +749,11 @@
     
     @media (max-width: 600px) {
         :root {
-            --ribbon-size: 60px;
+            --ribbon-size: 70px;
             --balloon-size: 30px;
             --smiley-size: 20px;
             --bubble-size: 15px;
-            --hat-size: 25px;
+            --hat-size: 35px;
             --profile-size: 120px;
             --circle-size: 40px;
         }
@@ -765,6 +766,25 @@
         #btn__letter {
             font-size: 14px;
             padding: 8px 16px;
+        }
+        
+        /* تعديلات إضافية للالتصاق بالحواف */
+        .ribbon-left {
+            transform: rotate(-10deg) translate(-5px, 0);
+        }
+        
+        .ribbon-right {
+            transform: rotate(10deg) translate(5px, 0) scaleX(-1);
+        }
+        
+        .smiley-face {
+            margin-left: -10px;
+            margin-top: -10px;
+        }
+        
+        .speech-bubble {
+            margin-right: -10px;
+            margin-top: -15px;
         }
     }
     
