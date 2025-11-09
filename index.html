@@ -32,6 +32,15 @@
         --color-heart: #F61F1F;
         --color-bg-letter: #fff8e4;
         --color-border: #DACCBF;
+        
+        /* ====== أحجام الصور القابلة للتعديل بسهولة ====== */
+        --ribbon-size: 80px;
+        --balloon-size: 40px;
+        --smiley-size: 25px;
+        --bubble-size: 20px;
+        --hat-size: 35px;
+        --profile-size: 140px;
+        --circle-size: 50px;
     }
     html, body {
         height: 100%;
@@ -194,7 +203,7 @@
     
     /* ====== تحسين توزيع الصور والزخارف ====== */
     
-    /* شريط الزينة المثلثي في الأعلى */
+    /* شريط الزينة المثلثي في الأعلى - حجم صغير في الزوايا */
     .ribbon-container {
         position: absolute;
         top: 0;
@@ -204,29 +213,29 @@
         justify-content: space-between;
         transform: translateY(-80px);
         animation: translateYFlag 1.5s 2s forwards;
-        padding: 0 10px;
+        padding: 0;
         box-sizing: border-box;
         z-index: 2;
     }
     
     .ribbon-left, .ribbon-right {
-        width: 100%;
-        max-width: 300px;
+        width: var(--ribbon-size);
+        height: var(--ribbon-size);
         display: flex;
     }
     
     .ribbon-left img, .ribbon-right img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
     }
     
     .ribbon-left {
-        transform: rotate(-10deg) translate(-5px, 10px);
+        transform: rotate(-10deg) translate(-5px, 5px);
     }
     
     .ribbon-right {
-        transform: rotate(10deg) translate(5px, 10px) scaleX(-1);
+        transform: rotate(10deg) translate(5px, 5px) scaleX(-1);
         justify-content: flex-end;
     }
     
@@ -389,32 +398,25 @@
         color: var(--color-text-pink);
     }
 
-    /* تحسين القبعة */
+    /* تحسين القبعة - حجم صغير */
     .title .hat{
         position: absolute;
-        right: 15px;
-        top: -35px;
+        right: 10px;
+        top: -25px;
         transform: rotate(-40deg);
         z-index: -1;
         animation: topHat 4s 7s forwards ease;
-        width: 45px;
+        width: var(--hat-size);
         height: auto;
-    }
-    @media (min-width: 768px) {
-        .title .hat {
-            right: 25px;
-            top: -45px;
-            width: 55px;
-        }
     }
     @keyframes topHat{
         20%, 30%{
-            top: -12px;
+            top: -8px;
             transform-origin: left;
             transform: rotate(-40deg);
         }
         35%, 100%{
-            top: -12px;
+            top: -8px;
             transform: rotate(0deg);
         }
     }
@@ -534,22 +536,16 @@
     /* الصورة الشخصية */
     .content .right .image{
         position: relative;
-        width: 160px;
-        height: 160px;
+        width: var(--profile-size);
+        height: var(--profile-size);
         border-radius: 50%;
         overflow: hidden;
         display: flex;
         align-items: center;
-        border: 4px solid var(--color-black);
+        border: 3px solid var(--color-black);
         max-width: 80%;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         z-index: 1;
-    }
-    @media (min-width: 768px) {
-        .content .right .image {
-            width: 200px;
-            height: 200px;
-        }
     }
     .content .right .image img{
         width: 100%;
@@ -557,7 +553,7 @@
         object-fit: cover;
     }
     
-    /* حاوية البالونات */
+    /* حاوية البالونات - حجم صغير */
     .balloons-container {
         position: absolute;
         top: 0;
@@ -571,30 +567,31 @@
         z-index: 0;
     }
     
-    /* البالونات */
+    /* البالونات - حجم صغير */
     .balloon {
-        width: 100%;
-        max-width: 80px;
+        width: var(--balloon-size);
+        height: var(--balloon-size);
         display: flex;
         justify-content: flex-end;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
     
     .balloon img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
     }
     
     .balloon.balloon_one {
         animation: balloon1 2s infinite linear;
-        margin-right: 10px;
+        margin-right: 5px;
+        margin-top: -10px;
     }
     
     .balloon.balloon_two {
         animation: balloon2 2s infinite linear;
-        margin-right: 20px;
-        margin-top: 20px;
+        margin-right: 10px;
+        margin-top: 5px;
     }
     
     @keyframes balloon1{
@@ -627,7 +624,7 @@
         }
     }
     
-    /* حاوية الوجه المبتسم وفقاعة الكلام */
+    /* حاوية الوجه المبتسم وفقاعة الكلام - حجم صغير وملتصق بالصورة */
     .bear-decorations {
         position: absolute;
         top: 0;
@@ -640,55 +637,49 @@
         z-index: 2;
     }
     
-    /* الوجه المبتسم */
+    /* الوجه المبتسم - حجم صغير وملتصق بالصورة */
     .smiley-face {
-        width: 100%;
-        max-width: 50px;
+        width: var(--smiley-size);
+        height: var(--smiley-size);
         display: flex;
         justify-content: flex-start;
-        margin-left: 10px;
-        margin-top: -30px;
+        margin-left: -5px;
+        margin-top: -10px;
     }
     
     .smiley-face img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
     }
     
-    /* فقاعة الكلام */
+    /* فقاعة الكلام - حجم صغير وملتصق بالصورة */
     .speech-bubble {
-        width: 100%;
-        max-width: 60px;
+        width: var(--bubble-size);
+        height: var(--bubble-size);
         display: flex;
         justify-content: flex-end;
-        margin-right: 10px;
-        margin-top: -40px;
+        margin-right: -5px;
+        margin-top: -15px;
     }
     
     .speech-bubble img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: contain;
     }
     
-    /* تحسينات دائرة النص الدوارة */
+    /* تحسينات دائرة النص الدوارة - حجم أصغر */
     .cricle{
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 10px;
+        right: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
         transform: scale(0);
         animation: scaleCricle 3s 15s forwards ease-in-out;
         z-index: 3;
-    }
-    @media (min-width: 768px) {
-        .cricle {
-            top: 25px;
-            right: 25px;
-        }
     }
     @keyframes scaleCricle {
         0%{
@@ -705,8 +696,8 @@
         }
     }
     .text__cricle{
-        width: 60px;
-        height: 60px;
+        width: var(--circle-size);
+        height: var(--circle-size);
         background-color: var(--color-text-pink);
         border-radius: 50%;
         border: 2px solid var(--color-black);
@@ -715,12 +706,6 @@
         align-items: center;
         animation: rotateCricle 3s linear infinite;
         position: relative;
-    }
-    @media (min-width: 768px) {
-        .text__cricle {
-            width: 70px;
-            height: 70px;
-        }
     }
     @keyframes rotateCricle{
         to{
@@ -736,18 +721,12 @@
         color: var(--color-black);
         font-family: "Sriracha", cursive;
         text-transform: uppercase;
-        font-size: 0.4rem;
+        font-size: 0.35rem;
         width: max-content;
-        height: 30px;
+        height: calc(var(--circle-size) / 2);
         transform: rotate(calc(var(--i) * 24deg));
         text-align: center;
         font-weight: bold;
-    }
-    @media (min-width: 768px) {
-        .text__cricle span {
-            font-size: 0.45rem;
-            height: 35px;
-        }
     }
     
     .fa-heart{
@@ -768,63 +747,14 @@
     /* ====== استعلامات الوسائط للشاشات الصغيرة ====== */
     
     @media (max-width: 600px) {
-        /* شريط الزينة المثلثي */
-        .ribbon-container {
-            padding: 0 5px;
-        }
-        
-        .ribbon-left, .ribbon-right {
-            max-width: 120px;
-        }
-        
-        /* الصورة الشخصية */
-        .content .right .image {
-            width: 140px;
-            height: 140px;
-        }
-        
-        /* البالونات */
-        .balloon {
-            max-width: 50px;
-        }
-        
-        .balloon.balloon_one {
-            margin-right: 5px;
-        }
-        
-        .balloon.balloon_two {
-            margin-right: 15px;
-            margin-top: 15px;
-        }
-        
-        /* الوجه المبتسم */
-        .smiley-face {
-            max-width: 35px;
-            margin-left: 5px;
-            margin-top: -20px;
-        }
-        
-        /* فقاعة الكلام */
-        .speech-bubble {
-            max-width: 45px;
-            margin-right: 5px;
-            margin-top: -30px;
-        }
-        
-        /* دائرة النص الدوارة */
-        .cricle {
-            top: 10px;
-            right: 10px;
-        }
-        
-        .text__cricle {
-            width: 50px;
-            height: 50px;
-        }
-        
-        .text__cricle span {
-            font-size: 0.35rem;
-            height: 25px;
+        :root {
+            --ribbon-size: 60px;
+            --balloon-size: 30px;
+            --smiley-size: 20px;
+            --bubble-size: 15px;
+            --hat-size: 25px;
+            --profile-size: 120px;
+            --circle-size: 40px;
         }
         
         /* النص */
