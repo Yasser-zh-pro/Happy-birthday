@@ -18,11 +18,11 @@
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+        -webkit-tap-highlight-color: transparent; /* منع الظل الأزرق عند الضغط */
+        -webkit-user-select: none; /* منع تحديد النصوص في WebKit */
+        -moz-user-select: none; /* منع تحديد النصوص في Firefox */
+        -ms-user-select: none; /* منع تحديد النصوص في Internet Explorer */
+        user-select: none; /* منع تحديد النصوص */
     }
     :root{
         --color-pink: #feecea;
@@ -33,12 +33,12 @@
         --color-bg-letter: #fff8e4;
         --color-border: #DACCBF;
         
-        /* ====== أحجام الصور القابلة للتعديل ====== */
+        /* ====== أحجام الصور القابلة للتعديل بسهولة ====== */
         --ribbon-size: 90px;
         --balloon-size: 35px;
         --smiley-size: 25px;
         --bubble-size: 20px;
-        --hat-size: 20px; /* تم تصغير القبعة */
+        --hat-size: 35px;
         --profile-size: 140px;
         --circle-size: 50px;
     }
@@ -154,7 +154,7 @@
         background-color: var(--color-heart);
     }
     .setup-btn:active {
-        transform: scale(0.95);
+        transform: scale(0.95); /* تأثير الضغط الموحد */
     }
     .setup-btn i {
         font-size: 16px;
@@ -214,7 +214,7 @@
         z-index: 10;
     }
     
-    /* الشريط الأيسر - ملتصق تماماً بالزاوية بدون مسافات */
+    /* الشريط الأيسر - ملتصق تماماً بالزاوية */
     .ribbon-left {
         position: absolute;
         top: 0;
@@ -224,7 +224,6 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
-        overflow: hidden;
     }
     
     .ribbon-left img {
@@ -234,7 +233,7 @@
         transform: rotate(-10deg);
     }
     
-    /* الشريط الأيمن - ملتصق تماماً بالزاوية بدون مسافات */
+    /* الشريط الأيمن - ملتصق تماماً بالزاوية */
     .ribbon-right {
         position: absolute;
         top: 0;
@@ -244,7 +243,6 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
-        overflow: hidden;
     }
     
     .ribbon-right img {
@@ -337,7 +335,7 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     #btn__letter:active{
-        transform: scale(0.95);
+        transform: scale(0.95); /* تأثير الضغط الموحد */
     }
     #btn__letter i{
         font-size: 14px;
@@ -416,11 +414,11 @@
         color: var(--color-text-pink);
     }
 
-    /* ====== إصلاح مشكلة القبعة ====== */
+    /* إصلاح مشكلة القبعة - جعلها صغيرة وفي مكانها الصحيح */
     .title .hat{
         position: absolute;
         right: 5px;
-        top: -15px; /* تعديل الموقع ليكون أعلى */
+        top: -25px;
         transform: rotate(-40deg);
         z-index: -1;
         animation: topHat 4s 7s forwards ease;
@@ -774,7 +772,7 @@
             --balloon-size: 25px;
             --smiley-size: 20px;
             --bubble-size: 15px;
-            --hat-size: 18px; /* تم تصغير القبعة في الشاشات الصغيرة */
+            --hat-size: 25px;
             --profile-size: 120px;
             --circle-size: 40px;
         }
@@ -863,7 +861,7 @@
         transition: all 0.2s ease;
     }
     .letter__border .close:active {
-        transform: scale(0.9);
+        transform: scale(0.9); /* تأثير الضغط الموحد */
     }
     .letter__border .letter{
         width: 100%;
@@ -1087,7 +1085,7 @@
         background-color: var(--color-heart);
     }
     .control-btn:active {
-        transform: scale(0.9);
+        transform: scale(0.9); /* تأثير الضغط الموحد */
     }
     .control-btn.active {
         background-color: #4CAF50;
@@ -1113,8 +1111,164 @@
         color: white;
     }
     .music-controls:active {
-        transform: scale(0.9);
-    }
+        transform: scale(0.9); /* تأثير الضغط الموحد */
+    }/* ======= Overrides: force center for all decorative images ======= */
+
+/* محتوى الصفحة مركزي افتراضيا */
+.content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 18px !important;
+}
+
+/* تخطيط سطح المكتب: نص على اليسار، صورة في الوسط/يمين */
+@media (min-width: 768px) {
+  .content {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .content .left { width: 45% !important; }
+  .content .right { width: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+}
+
+/* إزالة أي ترجمات أو إزاحات تدفع صندوق الصورة خارج المركز */
+.right .box__account {
+  position: relative !important;
+  transform: none !important;
+  animation: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* إطار الصورة الدائري ثابت ومتمركز */
+.content .right .image {
+  position: relative !important;
+  width: var(--profile-size) !important;
+  height: var(--profile-size) !important;
+  max-width: 80% !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2 !important;
+}
+
+/* صورة الملف الشخصي تعرض بالكامل داخل الإطار */
+.content .right .image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* وضع الزينة داخل إطار الصورة بدقة */
+.balloons-container {
+  position: absolute !important;
+  top: -8% !important;
+  right: -6% !important;
+  width: auto !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* البالونات بحجم نسبي داخل الإطار */
+.balloon {
+  position: relative !important;
+  width: var(--balloon-size) !important;
+  height: var(--balloon-size) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* وضع الوجه المبتسم وفقاعة الكلام داخل نفس الإطار */
+.bear-decorations {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+
+/* وجه الابتسامة أعلى يسار الإطار */
+.smiley-face {
+  position: absolute !important;
+  top: 8% !important;
+  left: 8% !important;
+  width: var(--smiley-size) !important;
+  height: var(--smiley-size) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* فقاعة الكلام أعلى يمين الإطار */
+.speech-bubble {
+  position: absolute !important;
+  top: 12% !important;
+  right: 8% !important;
+  width: var(--bubble-size) !important;
+  height: var(--bubble-size) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* الدائرة الزخرفية الصغيرة قرب زاوية الإطار */
+.cricle {
+  position: absolute !important;
+  top: -10px !important;
+  right: -10px !important;
+  transform: none !important;
+  z-index: 4 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* اجبار كل صور الزينة على contain أو cover حسب الاستخدام */
+.balloons-container img,
+.smiley-face img,
+.speech-bubble img,
+.cricle .text__cricle,
+.ribbon-left img,
+.ribbon-right img {
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* استجابة صارمة للهاتف: تقليل الأحجام ومحافظة على مركزية الإطار */
+@media (max-width: 600px) {
+  :root {
+    --profile-size: 120px;
+    --balloon-size: 28px;
+    --smiley-size: 22px;
+    --bubble-size: 16px;
+  }
+  .balloons-container { top: -6% !important; right: -4% !important; }
+  .smiley-face { top: 6% !important; left: 6% !important; }
+  .speech-bubble { top: 10% !important; right: 6% !important; }
+  .cricle { top: -8px !important; right: -8px !important; }
+}
   </style>
 </head>
 
