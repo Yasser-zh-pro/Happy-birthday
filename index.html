@@ -34,12 +34,12 @@
         --color-border: #DACCBF;
         
         /* ====== أحجام الصور القابلة للتعديل بسهولة ====== */
-        --ribbon-size: 120px;
-        --balloon-size: 80px;
+        --ribbon-size: 90px;
+        --balloon-size: 35px;
         --smiley-size: 25px;
         --bubble-size: 20px;
-        --hat-size: 5px;
-        --profile-size: 200px;
+        --hat-size: 35px;
+        --profile-size: 140px;
         --circle-size: 50px;
     }
     html, body {
@@ -201,47 +201,63 @@
         background-color: var(--color-pink);
     }
     
-    /* ====== تحسين توزيع الصور والزخارف ====== */
+    /* ====== إصلاح تموضع الـ Ribbon ====== */
     
-    /* شريط الزينة المثلثي في الأعلى - حجم صغير في الزوايا وملتصق تماماً */
+    /* حاوية الـ Ribbon - تغطي كامل الصفحة */
     .ribbon-container {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-80px);
-        animation: translateYFlag 1.5s 2s forwards;
-        padding: 0;
-        box-sizing: border-box;
-        z-index: 2;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
     }
     
-    .ribbon-left, .ribbon-right {
+    /* الشريط الأيسر - ملتصق تماماً بالزاوية */
+    .ribbon-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
         width: var(--ribbon-size);
         height: var(--ribbon-size);
-        display: flex;
+        z-index: 10;
     }
     
-    .ribbon-left img, .ribbon-right img {
+    .ribbon-left img {
         width: 100%;
         height: 100%;
         object-fit: contain;
+        transform: rotate(-10deg);
     }
     
-    .ribbon-left {
-        transform: rotate(-10deg) translate(-10px, 0);
-    }
-    
+    /* الشريط الأيمن - ملتصق تماماً بالزاوية */
     .ribbon-right {
-        transform: rotate(10deg) translate(10px, 0) scaleX(-1);
-        justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        width: var(--ribbon-size);
+        height: var(--ribbon-size);
+        z-index: 10;
     }
     
-    @keyframes translateYFlag{
-        to{
-            transform: translateY(0);
+    .ribbon-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform: rotate(10deg) scaleX(-1);
+    }
+    
+    /* استجابة للشاشات الصغيرة */
+    @media (max-width: 600px) {
+        .ribbon-left,
+        .ribbon-right {
+            width: 25%;
+            max-width: 70px;
         }
     }
     
@@ -398,11 +414,11 @@
         color: var(--color-text-pink);
     }
 
-    /* إصلاح مشكلة القبعة - استخدام var(--hat-size) بشكل صحيح */
+    /* إصلاح مشكلة القبعة - جعلها صغيرة وفي مكانها الصحيح */
     .title .hat{
         position: absolute;
-        right: 10px;
-        top: -35px;
+        right: 5px;
+        top: -25px;
         transform: rotate(-40deg);
         z-index: -1;
         animation: topHat 4s 7s forwards ease;
@@ -412,12 +428,12 @@
     
     @keyframes topHat{
         20%, 30%{
-            top: -8px;
+            top: -5px;
             transform-origin: left;
             transform: rotate(-40deg);
         }
         35%, 100%{
-            top: -8px;
+            top: -5px;
             transform: rotate(0deg);
         }
     }
@@ -554,7 +570,7 @@
         object-fit: cover;
     }
     
-    /* حاوية البالونات - حجم صغير */
+    /* حاوية البالونات - حجم صغير وملتصق بالصورة */
     .balloons-container {
         position: absolute;
         top: 0;
@@ -568,13 +584,12 @@
         z-index: 0;
     }
     
-    /* البالونات - حجم صغير */
+    /* البالونات - حجم صغير وملتصق بالصورة */
     .balloon {
         width: var(--balloon-size);
         height: var(--balloon-size);
         display: flex;
         justify-content: flex-end;
-        margin-bottom: 5px;
     }
     
     .balloon img {
@@ -585,14 +600,16 @@
     
     .balloon.balloon_one {
         animation: balloon1 2s infinite linear;
-        margin-right: 0;
-        margin-top: -15px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
     
     .balloon.balloon_two {
         animation: balloon2 2s infinite linear;
-        margin-right: 5px;
-        margin-top: 10px;
+        position: absolute;
+        top: 40px;
+        right: 0px;
     }
     
     @keyframes balloon1{
@@ -625,7 +642,7 @@
         }
     }
     
-    /* حاوية الوجه المبتسم وفقاعة الكلام - حجم صغير وملتصق بالصورة */
+    /* حاوية الوجه المبتسم وفقاعة الكلام - ملتصقة تماماً بالصورة */
     .bear-decorations {
         position: absolute;
         top: 0;
@@ -638,14 +655,15 @@
         z-index: 2;
     }
     
-    /* الوجه المبتسم - حجم صغير وملتصق بالصورة */
+    /* الوجه المبتسم - ملتصق تماماً بالصورة */
     .smiley-face {
         width: var(--smiley-size);
         height: var(--smiley-size);
         display: flex;
         justify-content: flex-start;
-        margin-left: -15px;
-        margin-top: -15px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
     }
     
     .smiley-face img {
@@ -654,14 +672,15 @@
         object-fit: contain;
     }
     
-    /* فقاعة الكلام - حجم صغير وملتصق بالصورة */
+    /* فقاعة الكلام - ملتصقة تماماً بالصورة */
     .speech-bubble {
         width: var(--bubble-size);
         height: var(--bubble-size);
         display: flex;
         justify-content: flex-end;
-        margin-right: -15px;
-        margin-top: -20px;
+        position: absolute;
+        top: 15px;
+        right: 10px;
     }
     
     .speech-bubble img {
@@ -750,10 +769,10 @@
     @media (max-width: 600px) {
         :root {
             --ribbon-size: 70px;
-            --balloon-size: 30px;
+            --balloon-size: 25px;
             --smiley-size: 20px;
             --bubble-size: 15px;
-            --hat-size: 35px;
+            --hat-size: 25px;
             --profile-size: 120px;
             --circle-size: 40px;
         }
@@ -769,22 +788,24 @@
         }
         
         /* تعديلات إضافية للالتصاق بالحواف */
-        .ribbon-left {
-            transform: rotate(-10deg) translate(-5px, 0);
-        }
-        
-        .ribbon-right {
-            transform: rotate(10deg) translate(5px, 0) scaleX(-1);
-        }
-        
         .smiley-face {
-            margin-left: -10px;
-            margin-top: -10px;
+            top: 5px;
+            left: 5px;
         }
         
         .speech-bubble {
-            margin-right: -10px;
-            margin-top: -15px;
+            top: 10px;
+            right: 5px;
+        }
+        
+        .balloon.balloon_one {
+            top: 2px;
+            right: 2px;
+        }
+        
+        .balloon.balloon_two {
+            top: 30px;
+            right: -2px;
         }
     }
     
