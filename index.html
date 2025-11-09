@@ -33,14 +33,14 @@
         --color-bg-letter: #fff8e4;
         --color-border: #DACCBF;
         
-        /* أحجام مصغرة للعناصر */
-        --ribbon-size: 80px;
-        --balloon-size: 30px;
-        --smiley-size: 20px;
-        --bubble-size: 15px;
-        --hat-size: 30px;
-        --profile-size: 130px;
-        --circle-size: 45px;
+        /* ====== أحجام الصور القابلة للتعديل ====== */
+        --ribbon-size: 90px;
+        --balloon-size: 35px;
+        --smiley-size: 25px;
+        --bubble-size: 20px;
+        --hat-size: 20px; /* تم تصغير القبعة */
+        --profile-size: 140px;
+        --circle-size: 50px;
     }
     html, body {
         height: 100%;
@@ -214,7 +214,7 @@
         z-index: 10;
     }
     
-    /* الشريط الأيسر - ملتصق تماماً بالزاوية */
+    /* الشريط الأيسر - ملتصق تماماً بالزاوية بدون مسافات */
     .ribbon-left {
         position: absolute;
         top: 0;
@@ -224,6 +224,7 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
+        overflow: hidden;
     }
     
     .ribbon-left img {
@@ -233,7 +234,7 @@
         transform: rotate(-10deg);
     }
     
-    /* الشريط الأيمن - ملتصق تماماً بالزاوية */
+    /* الشريط الأيمن - ملتصق تماماً بالزاوية بدون مسافات */
     .ribbon-right {
         position: absolute;
         top: 0;
@@ -243,6 +244,7 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
+        overflow: hidden;
     }
     
     .ribbon-right img {
@@ -414,24 +416,23 @@
         color: var(--color-text-pink);
     }
 
-    /* إصلاح مشكلة القبعة - جعلها صغيرة وفي مكانها الصحيح */
+    /* ====== إصلاح مشكلة القبعة ====== */
     .title .hat{
         position: absolute;
         right: 5px;
-        top: -20px;
-        transform: rotate(-15deg);
+        top: -15px; /* تعديل الموقع ليكون أعلى */
+        transform: rotate(-40deg);
         z-index: -1;
         animation: topHat 4s 7s forwards ease;
         width: var(--hat-size) !important;
         height: auto;
-        max-width: 30px;
     }
     
     @keyframes topHat{
         20%, 30%{
             top: -5px;
             transform-origin: left;
-            transform: rotate(-15deg);
+            transform: rotate(-40deg);
         }
         35%, 100%{
             top: -5px;
@@ -551,22 +552,17 @@
         }
     }
     
-    /* الصورة الشخصية مع حاوية للعناصر الملتصقة */
-    .content .right .image-container {
+    /* الصورة الشخصية */
+    .content .right .image{
         position: relative;
         width: var(--profile-size);
         height: var(--profile-size);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .content .right .image{
-        width: 100%;
-        height: 100%;
         border-radius: 50%;
         overflow: hidden;
+        display: flex;
+        align-items: center;
         border: 3px solid var(--color-black);
+        max-width: 80%;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         z-index: 1;
     }
@@ -576,31 +572,46 @@
         object-fit: cover;
     }
     
-    /* البالونات - ملتصقة تماماً بالصورة */
-    .balloon.balloon_one {
+    /* حاوية البالونات - حجم صغير وملتصق بالصورة */
+    .balloons-container {
         position: absolute;
-        top: -15px;
-        right: -5px;
-        width: var(--balloon-size);
-        height: var(--balloon-size);
-        animation: balloon1 2s infinite linear;
-        z-index: 2;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 0;
     }
     
-    .balloon.balloon_two {
-        position: absolute;
-        top: 25px;
-        right: -10px;
+    /* البالونات - حجم صغير وملتصق بالصورة */
+    .balloon {
         width: var(--balloon-size);
         height: var(--balloon-size);
-        animation: balloon2 2s infinite linear;
-        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
     }
     
     .balloon img {
         width: 100%;
         height: 100%;
         object-fit: contain;
+    }
+    
+    .balloon.balloon_one {
+        animation: balloon1 2s infinite linear;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    
+    .balloon.balloon_two {
+        animation: balloon2 2s infinite linear;
+        position: absolute;
+        top: 40px;
+        right: 0px;
     }
     
     @keyframes balloon1{
@@ -633,14 +644,28 @@
         }
     }
     
+    /* حاوية الوجه المبتسم وفقاعة الكلام - ملتصقة تماماً بالصورة */
+    .bear-decorations {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+    }
+    
     /* الوجه المبتسم - ملتصق تماماً بالصورة */
     .smiley-face {
-        position: absolute;
-        top: 5px;
-        left: 5px;
         width: var(--smiley-size);
         height: var(--smiley-size);
-        z-index: 3;
+        display: flex;
+        justify-content: flex-start;
+        position: absolute;
+        top: 10px;
+        left: 10px;
     }
     
     .smiley-face img {
@@ -651,12 +676,13 @@
     
     /* فقاعة الكلام - ملتصقة تماماً بالصورة */
     .speech-bubble {
-        position: absolute;
-        top: 10px;
-        right: 5px;
         width: var(--bubble-size);
         height: var(--bubble-size);
-        z-index: 3;
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        top: 15px;
+        right: 10px;
     }
     
     .speech-bubble img {
@@ -665,7 +691,7 @@
         object-fit: contain;
     }
     
-    /* دائرة النص الدوارة - حجم أصغر */
+    /* تحسينات دائرة النص الدوارة - حجم أصغر */
     .cricle{
         position: absolute;
         top: 10px;
@@ -708,6 +734,7 @@
             transform: rotate(360deg);
         }
     }
+    /* تحسين دوران النص حول القلب */
     .text__cricle span{
         position: absolute;
         left: 50%;
@@ -745,13 +772,14 @@
         :root {
             --ribbon-size: 70px;
             --balloon-size: 25px;
-            --smiley-size: 18px;
-            --bubble-size: 13px;
-            --hat-size: 25px;
-            --profile-size: 110px;
+            --smiley-size: 20px;
+            --bubble-size: 15px;
+            --hat-size: 18px; /* تم تصغير القبعة في الشاشات الصغيرة */
+            --profile-size: 120px;
             --circle-size: 40px;
         }
         
+        /* النص */
         .title {
             font-size: 1.2rem;
         }
@@ -761,24 +789,25 @@
             padding: 8px 16px;
         }
         
+        /* تعديلات إضافية للالتصاق بالحواف */
         .smiley-face {
-            top: 3px;
-            left: 3px;
+            top: 5px;
+            left: 5px;
         }
         
         .speech-bubble {
-            top: 8px;
-            right: 3px;
+            top: 10px;
+            right: 5px;
         }
         
         .balloon.balloon_one {
-            top: -12px;
-            right: -3px;
+            top: 2px;
+            right: 2px;
         }
         
         .balloon.balloon_two {
-            top: 20px;
-            right: -8px;
+            top: 30px;
+            right: -2px;
         }
     }
     
@@ -1179,27 +1208,26 @@
 
       <div class="right">
         <div class="box__account">
-          <!-- حاوية الصورة الشخصية مع العناصر الملتصقة -->
-          <div class="image-container">
-            <!-- الصورة الشخصية -->
-            <div class="image">
-              <img src="./images/r5.jpg" alt="Profile Picture">
-            </div>
-            
-            <!-- البالونات -->
+          <!-- الصورة الشخصية -->
+          <div class="image">
+            <img src="./images/r5.jpg" alt="Profile Picture">
+          </div>
+          
+          <!-- البالونات -->
+          <div class="balloons-container">
             <div class="balloon balloon_one">
               <img src="./images/balloon1.png" alt="Balloon 1">
             </div>
             <div class="balloon balloon_two">
               <img src="./images/balloon2.png" alt="Balloon 2">
             </div>
-            
-            <!-- الوجه المبتسم -->
+          </div>
+          
+          <!-- الوجه المبتسم وفقاعة الكلام -->
+          <div class="bear-decorations">
             <div class="smiley-face">
               <img src="./images/smiley_icon.png" alt="Smiley Face">
             </div>
-            
-            <!-- فقاعة الكلام -->
             <div class="speech-bubble">
               <img src="./images/heart.png" alt="Heart Bubble">
             </div>
