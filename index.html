@@ -192,34 +192,48 @@
         background-color: var(--color-pink);
     }
     
-    /* تحسين الأعلام لجعلها أكثر تناسقاً */
-    .flag__birthday{
+    /* ====== تحسين توزيع الصور والزخارف ====== */
+    
+    /* شريط الزينة المثلثي في الأعلى */
+    .ribbon-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         transform: translateY(-80px);
         animation: translateYFlag 1.5s 2s forwards;
-        width: 100%;
-        padding: 0 5px;
+        padding: 0 10px;
         box-sizing: border-box;
-        position: absolute;
-        top: 0;
+        z-index: 2;
     }
+    
+    .ribbon-left, .ribbon-right {
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+    }
+    
+    .ribbon-left img, .ribbon-right img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    .ribbon-left {
+        transform: rotate(-10deg) translate(-5px, 10px);
+    }
+    
+    .ribbon-right {
+        transform: rotate(10deg) translate(5px, 10px) scaleX(-1);
+        justify-content: flex-end;
+    }
+    
     @keyframes translateYFlag{
         to{
             transform: translateY(0);
         }
-    }
-    .flag__birthday .flag__left{
-        transform: rotate(-10deg) translate(-5px, 10px);
-        width: 120px;
-        height: auto;
-        max-width: 25%;
-    }
-    .flag__birthday .flag__right{
-        transform: rotate(10deg) translate(5px, 10px) scaleX(-1);
-        width: 120px;
-        height: auto;
-        max-width: 25%;
     }
     
     .content{
@@ -375,7 +389,7 @@
         color: var(--color-text-pink);
     }
 
-    /* تحسين القبعة لجعلها أكثر تناسقاً */
+    /* تحسين القبعة */
     .title .hat{
         position: absolute;
         right: 15px;
@@ -497,7 +511,9 @@
         }
     }
     
-    /* تحسين منطقة الصورة الشخصية */
+    /* ====== إعادة تنظيم منطقة الصورة الشخصية والزخارف ====== */
+    
+    /* الحاوية الرئيسية للصورة والزخارف */
     .right .box__account{
         position: relative;
         transform: translateY(300px);
@@ -515,7 +531,7 @@
         }
     }
     
-    /* تحسين الصورة الشخصية */
+    /* الصورة الشخصية */
     .content .right .image{
         position: relative;
         width: 160px;
@@ -527,6 +543,7 @@
         border: 4px solid var(--color-black);
         max-width: 80%;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1;
     }
     @media (min-width: 768px) {
         .content .right .image {
@@ -540,6 +557,121 @@
         object-fit: cover;
     }
     
+    /* حاوية البالونات */
+    .balloons-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 0;
+    }
+    
+    /* البالونات */
+    .balloon {
+        width: 100%;
+        max-width: 80px;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+    
+    .balloon img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    .balloon.balloon_one {
+        animation: balloon1 2s infinite linear;
+        margin-right: 10px;
+    }
+    
+    .balloon.balloon_two {
+        animation: balloon2 2s infinite linear;
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+    
+    @keyframes balloon1{
+        0%, 50%,100%{
+            transform-origin: bottom right;
+            transform: rotate(0deg);
+        }
+        25%{
+            transform-origin: bottom right;
+            transform: rotate(3deg);
+        }
+        75%{
+            transform-origin: bottom right;
+            transform: rotate(-3deg);
+        }
+    }
+    
+    @keyframes balloon2 {
+        0%,50%,100%{
+            transform-origin: bottom left;
+            transform: rotate(10deg);
+        }
+        25%{
+            transform-origin: bottom left;
+            transform: rotate(7deg);
+        }
+        75%{
+            transform-origin: bottom left;
+            transform: rotate(13deg);
+        }
+    }
+    
+    /* حاوية الوجه المبتسم وفقاعة الكلام */
+    .bear-decorations {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+    }
+    
+    /* الوجه المبتسم */
+    .smiley-face {
+        width: 100%;
+        max-width: 50px;
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 10px;
+        margin-top: -30px;
+    }
+    
+    .smiley-face img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    /* فقاعة الكلام */
+    .speech-bubble {
+        width: 100%;
+        max-width: 60px;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        margin-top: -40px;
+    }
+    
+    .speech-bubble img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    
     /* تحسينات دائرة النص الدوارة */
     .cricle{
         position: absolute;
@@ -550,6 +682,7 @@
         align-items: center;
         transform: scale(0);
         animation: scaleCricle 3s 15s forwards ease-in-out;
+        z-index: 3;
     }
     @media (min-width: 768px) {
         .cricle {
@@ -632,237 +765,80 @@
         }
     }
     
-    /* تحسين البالونات */
-    .right .balloon_one{
-        position: absolute;
-        top: -15px;
-        left: -15px;
-        animation: balloon1 2s infinite linear;
-        width: 50px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .right .balloon_one {
-            top: -20px;
-            left: -20px;
-            width: 60px;
+    /* ====== استعلامات الوسائط للشاشات الصغيرة ====== */
+    
+    @media (max-width: 600px) {
+        /* شريط الزينة المثلثي */
+        .ribbon-container {
+            padding: 0 5px;
         }
-    }
-    @keyframes balloon1{
-        0%, 50%,100%{
-            transform-origin: bottom right;
-            transform: rotate(0deg);
+        
+        .ribbon-left, .ribbon-right {
+            max-width: 120px;
         }
-        25%{
-            transform-origin: bottom right;
-            transform: rotate(3deg);
+        
+        /* الصورة الشخصية */
+        .content .right .image {
+            width: 140px;
+            height: 140px;
         }
-        75%{
-            transform-origin: bottom right;
-            transform: rotate(-3deg);
+        
+        /* البالونات */
+        .balloon {
+            max-width: 50px;
         }
-    }
-    .right .balloon_two{
-        position: absolute;
-        top: 45px;
-        right: -15px;
-        z-index: -1;
-        transform: rotate(10deg);
-        animation: balloon2 2s infinite linear;
-        width: 50px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .right .balloon_two {
-            top: 60px;
-            right: -20px;
-            width: 60px;
+        
+        .balloon.balloon_one {
+            margin-right: 5px;
         }
-    }
-    @keyframes balloon2 {
-        0%,50%,100%{
-            transform-origin: bottom left;
-            transform: rotate(10deg);
+        
+        .balloon.balloon_two {
+            margin-right: 15px;
+            margin-top: 15px;
         }
-        25%{
-            transform-origin: bottom left;
-            transform: rotate(7deg);
+        
+        /* الوجه المبتسم */
+        .smiley-face {
+            max-width: 35px;
+            margin-left: 5px;
+            margin-top: -20px;
         }
-        75%{
-            transform-origin: bottom left;
-            transform: rotate(13deg);
+        
+        /* فقاعة الكلام */
+        .speech-bubble {
+            max-width: 45px;
+            margin-right: 5px;
+            margin-top: -30px;
         }
-    }
-
-    /* تحسين النجوم */
-    .decorate_star{
-        position: absolute;
-        transform: scale(0);
-        background-color: var(--color-black);
-        clip-path: polygon(0 50%, 35% 35%, 50% 0, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%);
-        animation: scaleCricle 3s var(--t) forwards, 
-                scaleStar 2s 16s infinite ease-in-out;
-    }
-    .decorate_star.star1{
-        width: 10px;
-        height: 10px;
-        top: 25px;
-        left: 8%;
-    }
-    @media (min-width: 768px) {
-        .decorate_star.star1 {
-            width: 12px;
-            height: 12px;
-            top: 35px;
-            left: 12%;
+        
+        /* دائرة النص الدوارة */
+        .cricle {
+            top: 10px;
+            right: 10px;
         }
-    }
-    .decorate_star.star2{
-        width: 8px;
-        height: 8px;
-        top: 15px;
-        right: 8%;
-    }
-    @media (min-width: 768px) {
-        .decorate_star.star2 {
-            width: 10px;
-            height: 10px;
-            top: 20px;
-            right: 12%;
+        
+        .text__cricle {
+            width: 50px;
+            height: 50px;
         }
-    }
-    .decorate_star.star3{
-        width: 7px;
-        height: 7px;
-        top: 45%;
-        left: 50%;
-    }
-    @media (min-width: 768px) {
-        .decorate_star.star3 {
-            width: 9px;
-            height: 9px;
-            top: 50%;
-            left: 55%;
+        
+        .text__cricle span {
+            font-size: 0.35rem;
+            height: 25px;
         }
-    }
-    .decorate_star.star4{
-        width: 9px;
-        height: 9px;
-        bottom: 25px;
-        left: 8%;
-    }
-    @media (min-width: 768px) {
-        .decorate_star.star4 {
-            width: 11px;
-            height: 11px;
-            bottom: 30px;
-            left: 12%;
+        
+        /* النص */
+        .title {
+            font-size: 1.2rem;
         }
-    }
-    .decorate_star.star5{
-        width: 8px;
-        height: 8px;
-        bottom: 25%;
-        left: 60%;
-    }
-    @media (min-width: 768px) {
-        .decorate_star.star5 {
-            width: 10px;
-            height: 10px;
-            bottom: 30%;
-            left: 65%;
-        }
-    }
-    @keyframes scaleStar {
-        25%{
-            transform: scale(0.8);
-        }
-        50%{
-            transform: scale(1.1);
+        
+        #btn__letter {
+            font-size: 14px;
+            padding: 8px 16px;
         }
     }
     
-    /* تحسين الزخارف السفلية */
-    .decorate_bottom{
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 60px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .decorate_bottom {
-            width: 70px;
-        }
-    }
-    
-    /* تحسين الزهور */
-    .decorate_flower--one{
-        position: absolute;
-        top: 35%;
-        left: 8%;
-        transform: scale(0);
-        animation: scaleCricle 3s var(--t) forwards ease-in-out;
-        width: 15px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .decorate_flower--one {
-            top: 40%;
-            left: 10%;
-            width: 18px;
-        }
-    }
-    .decorate_flower--two{
-        position: absolute;
-        top: 30%;
-        left: 55%;
-        transform: scale(0);
-        animation: scaleCricle 3s var(--t) forwards ease-in-out;
-        width: 15px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .decorate_flower--two {
-            top: 35%;
-            left: 60%;
-            width: 18px;
-        }
-    }
-    .decorate_flower--three{
-        position: absolute;
-        top: 25%;
-        right: 8%;
-        transform: scale(0);
-        animation: scaleCricle 3s var(--t) forwards ease-in-out;
-        width: 15px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .decorate_flower--three {
-            top: 30%;
-            right: 10%;
-            width: 18px;
-        }
-    }
-    
-    /* تحسين الوجه المبتسم */
-    .smiley__icon{
-        position: absolute;
-        bottom: 25%;
-        left: 50%;
-        transform: translateX(-50%) scale(0);
-        animation: scaleCricle 3s 15s forwards ease-in-out;
-        width: 50px;
-        height: auto;
-    }
-    @media (min-width: 768px) {
-        .smiley__icon {
-            bottom: 30%;
-            width: 60px;
-        }
-    }
-
+    /* بقية الأنماط */
     .box__letter{
         position: fixed;
         top: 0;
@@ -1210,9 +1186,14 @@
       </div>
     </div>
     
-    <div class="flag__birthday">
-      <img src="./images/1.png" alt="" class="flag__left">
-      <img src="./images/1.png" alt="" class="flag__right">
+    <!-- شريط الزينة المثلثي في الأعلى -->
+    <div class="ribbon-container">
+      <div class="ribbon-left">
+        <img src="./images/1.png" alt="Ribbon Left">
+      </div>
+      <div class="ribbon-right">
+        <img src="./images/1.png" alt="Ribbon Right">
+      </div>
     </div>
 
     <div class="content">
@@ -1236,7 +1217,7 @@
             <span style="--t: 6.4s;">y</span>
           </h1>
           <div class="hat">
-            <img src="./images/hat.png" alt="">
+            <img src="./images/hat.png" alt="Birthday Hat">
           </div>
         </div>
 
@@ -1254,22 +1235,40 @@
 
       <div class="right">
         <div class="box__account">
+          <!-- الصورة الشخصية -->
           <div class="image">
-            <img src="./images/r5.jpg" alt="">
+            <img src="./images/r5.jpg" alt="Profile Picture">
           </div>
+          
+          <!-- البالونات -->
+          <div class="balloons-container">
+            <div class="balloon balloon_one">
+              <img src="./images/balloon1.png" alt="Balloon 1">
+            </div>
+            <div class="balloon balloon_two">
+              <img src="./images/balloon2.png" alt="Balloon 2">
+            </div>
+          </div>
+          
+          <!-- الوجه المبتسم وفقاعة الكلام -->
+          <div class="bear-decorations">
+            <div class="smiley-face">
+              <img src="./images/smiley_icon.png" alt="Smiley Face">
+            </div>
+            <div class="speech-bubble">
+              <img src="./images/heart.png" alt="Heart Bubble">
+            </div>
+          </div>
+          
+          <!-- اسم صاحب العيد ميلاد -->
           <div class="name">
             <i class="fa-solid fa-heart"></i>
             <span>Name</span>
             <i class="fa-solid fa-heart"></i>
           </div>
-          <div class="balloon_one">
-            <img src="./images/balloon1.png" alt="">
-          </div>
-          <div class="balloon_two">
-            <img src="./images/balloon2.png" alt="">
-          </div>
         </div>
 
+        <!-- دائرة النص الدوارة -->
         <div class="cricle">
           <div class="text__cricle">
             <span style="--i: 1;">h</span>
@@ -1293,29 +1292,6 @@
       </div>
     </div>
 
-    <div class="decorate_star star1" style="--t: 15s;"></div>
-    <div class="decorate_star star2" style="--t: 15.2s;"></div>
-    <div class="decorate_star star3" style="--t: 15.4s;"></div>
-    <div class="decorate_star star4" style="--t: 15.6s;"></div>
-    <div class="decorate_star star5" style="--t: 15.8s;"></div>
-
-    <div class="decorate_flower--one" style="--t: 15s;">
-      <img src="./images/decorate_flower.png" alt="">
-    </div>
-    <div class="decorate_flower--two" style="--t: 15.3s;">
-      <img src="./images/decorate_flower.png" alt="">
-    </div>
-    <div class="decorate_flower--three" style="--t: 15.6s;">
-      <img src="./images/decorate_flower.png" alt="">
-    </div>
-
-    <div class="decorate_bottom">
-      <img src="./images/decorate.png" alt="">
-    </div>
-    <div class="smiley__icon">
-      <img src="./images/smiley_icon.png" alt="">
-    </div>
-
     <!-- Letter Box -->
     <div class="box__letter">
       <div class="letter__border">
@@ -1324,18 +1300,18 @@
           <div class="content__letter">
             <div class="left">
               <!-- تم تكبير الـ GIF هنا -->
-              <img id="heart__letter" src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="">
-              <img class="heart heart_1" style="--t: 0.2s" src="./images/heart.png" alt="">
-              <img class="heart heart_2" style="--t: 0.4s" src="./images/heart.png" alt="">
-              <img class="heart heart_3" style="--t: 0.6s" src="./images/heart.png" alt="">
-              <img class="heart heart_4" style="--t: 0.8s" src="./images/heart.png" alt="">
+              <img id="heart__letter" src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="Heart Animation">
+              <img class="heart heart_1" style="--t: 0.2s" src="./images/heart.png" alt="Heart 1">
+              <img class="heart heart_2" style="--t: 0.4s" src="./images/heart.png" alt="Heart 2">
+              <img class="heart heart_3" style="--t: 0.6s" src="./images/heart.png" alt="Heart 3">
+              <img class="heart heart_4" style="--t: 0.8s" src="./images/heart.png" alt="Heart 4">
             </div>
             <div class="right">
               <!-- تم حذف الـ GIF الثاني -->
               <div class="text__letter">
                 <p></p>
               </div>
-              <img id="mewmew" src="./images/mewmew.gif" alt="">
+              <img id="mewmew" src="./images/mewmew.gif" alt="Mewmew Animation">
             </div>
           </div>
         </div>
