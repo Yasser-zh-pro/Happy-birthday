@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Happy Birthday Website 2.0 | Aoudumber Bade">
+  <meta name="github" content="https://github.com/Aoudumber-Bade">
+  <title>Birthday Gift Animation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Coiny&family=Titan+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Sriracha&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+    
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent; /* منع الظل الأزرق عند الضغط */
+        -webkit-user-select: none; /* منع تحديد النصوص في WebKit */
+        -moz-user-select: none; /* منع تحديد النصوص في Firefox */
+        -ms-user-select: none; /* منع تحديد النصوص في Internet Explorer */
+        user-select: none; /* منع تحديد النصوص */
+    }
+    :root{
+        --color-pink: #feecea;
+        --color-white: #fff;
+        --color-black: #333;
+        --color-text-pink: #ff7882;
+        --color-heart: #F61F1F;
+        --color-bg-letter: #fff8e4;
+        --color-border: #DACCBF;
+    }
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+    body {
+        position: relative;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        background-image:linear-gradient(var(--color-pink), var(--color-pink));
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* شاشة تدوير الهاتف */
+    #orientation-message {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        font-family: "Sriracha", cursive;
+    }
+    #orientation-message i {
+        font-size: 60px;
+        margin-bottom: 20px;
+        color: var(--color-text-pink);
+        animation: rotatePhone 2s infinite ease-in-out;
+    }
+    @keyframes rotatePhone {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(90deg); }
+    }
+    #orientation-message h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: var(--color-black);
+    }
+    #orientation-message p {
+        font-size: 16px;
+        color: var(--color-black);
+        max-width: 300px;
+    }
+    
+    /* شاشة الإعدادات */
+    #setup-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        font-family: "Sriracha", cursive;
+        overflow: auto;
+    }
+    #setup-screen h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: var(--color-black);
+    }
+    #setup-screen p {
+        font-size: 14px;
+        margin-bottom: 25px;
+        color: var(--color-black);
+        max-width: 90%;
+        line-height: 1.5;
+    }
+    .setup-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 280px;
+    }
+    .setup-btn {
+        background-color: var(--color-text-pink);
+        color: white;
+        border: 2px solid var(--color-black);
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 50px;
+        font-family: "Sriracha", cursive;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        z-index: 10000;
+        position: relative;
+    }
+    .setup-btn:hover {
+        background-color: var(--color-heart);
+    }
+    .setup-btn:active {
+        transform: scale(0.95); /* تأثير الضغط الموحد */
+    }
+    .setup-btn i {
+        font-size: 16px;
+    }
+    #start-experience {
+        margin-top: 15px;
+        background-color: var(--color-black);
+        color: white;
+    }
+    
+    #wrapper{
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255,1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 76%, transparent 77%, transparent);
+        width: 100%;
+        height: 100%;
+        background-size: 40px 40px;
+        overflow: hidden;
+        z-index: 1;
+        display: none;
+    }
+    
+    /* إصلاح مشكلة المساحة الفارغة في Full Screen */
+    #wrapper:-webkit-full-screen {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+    }
+    #wrapper:-moz-full-screen {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+    }
+    #wrapper:-ms-fullscreen {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+    }
+    #wrapper:fullscreen {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-pink);
+    }
+    
+    .flag__birthday{
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-80px);
+        animation: translateYFlag 1.5s 2s forwards;
+        width: 100%;
+        padding: 0 5px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+    }
+    @keyframes translateYFlag{
+        to{
+            transform: translateY(0);
+        }
+    }
+    .flag__birthday .flag__left{
+        transform: rotate(-10deg) translate(-5px, 10px);
+        width: 30%;
+        height: auto;
+        max-width: 150px;
+    }
+    .flag__birthday .flag__right{
+        transform: rotate(10deg) translate(5px, 10px) scaleX(-1);
+        width: 30%;
+        height: auto;
+        max-width: 150px;
+    }
+    .content{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    @media (min-width: 768px) {
+        .content {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px;
+        }
+    }
+    .content .left, .content .right{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    .content .left{
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .content .left {
+            width: 45%;
+            padding-left: 20px;
+        }
+    }
+    .content .right{
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .content .right {
+            width: 50%;
+        }
+    }
+    .left .btn{
+        transform: scale(0);
+        animation: scaleCricle 2s 16s forwards ease-in-out;
+    }
+    
+    /* تحسينات زر Click here */
+    #btn__letter{
+        position: relative;
+        margin-top: 15px;
+        background-color: var(--color-text-pink);
+        outline: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 50px;
+        border: 2px solid var(--color-black);
+        font-family: "Sriracha", cursive;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+        transform: scale(1);
+        transition: all 0.2s ease;
+        max-width: 90%;
+        white-space: nowrap;
+        gap: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    #btn__letter:active{
+        transform: scale(0.95); /* تأثير الضغط الموحد */
+    }
+    #btn__letter i{
+        font-size: 14px;
+    }
+    #btn__letter:hover{
+        border-color: var(--color-heart);
+        background-color: var(--color-heart);
+        color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    #btn__letter:hover i{
+        animation: rotateHeart 1s infinite linear;
+    }
+    @keyframes rotateHeart{
+        0%,50%, 100%{
+            transform: rotate(0deg);
+        }
+        25%{
+            transform: rotate(12deg);
+        }
+        75%{
+            transform: rotate(-12deg);
+        }
+    }
+    
+    .title{
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-family: "Titan One", sans-serif;
+        font-size: 1.4rem;
+        flex-direction: column;
+        perspective: 1000px;
+        text-align: center;
+        max-width: 100%;
+        gap: 4px;
+        margin-bottom: 10px;
+    }
+    @media (min-width: 768px) {
+        .title {
+            font-size: 1.7rem;
+            gap: 6px;
+        }
+    }
+    .title .happy, .title .birthday{
+        position: relative;
+        text-shadow: 2px 2px var(--color-black), 
+                    -2px 2px var(--color-black), 
+                    2px -2px var(--color-black), 
+                    -2px -2px var(--color-black), 
+                    2px 4px 0 var(--color-black);
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .title .happy{
+        color: var(--color-white);
+    }
+    .title .happy span, .title .birthday span{
+        transform: translateY(50px);
+        opacity: 0;
+        visibility: hidden;
+        animation: txtTranslateY .5s var(--t) forwards;
+    }
+    @keyframes txtTranslateY{
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    .title .birthday{
+        color: var(--color-text-pink);
+    }
+
+    .title .hat{
+        position: absolute;
+        right: 5px;
+        top: -50px;
+        transform: rotate(-40deg);
+        z-index: -1;
+        animation: topHat 4s 7s forwards ease;
+        width: 40px;
+    }
+    @media (min-width: 768px) {
+        .title .hat {
+            right: 10px;
+            top: -60px;
+            width: 50px;
+        }
+    }
+    @keyframes topHat{
+        20%, 30%{
+            top: -12px;
+            transform-origin: left;
+            transform: rotate(-40deg);
+        }
+        35%, 100%{
+            top: -12px;
+            transform: rotate(0deg);
+        }
+    }
+    
+    .date__of__birth, .name{
+        display: flex;
+        justify-content:space-around;
+        align-items: center;
+        background-color: var(--color-text-pink);
+        border-radius: 50px;
+        margin-top: 5px;
+        font-family: "Sriracha", cursive;
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+    .date__of__birth{
+        border: 2px solid var(--color-black);
+        position: relative;
+        transform: translateY(-100px);
+        z-index: -1;
+        opacity: 0;
+        visibility: hidden;
+        width: 0px;
+        animation: dateOfBirth 3s 9s forwards;
+    }
+    @keyframes dateOfBirth{
+        0% {
+            width: 0px;
+            height: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+        20% {
+            width: 0px;
+            height: 0;
+            transform: translateY(0px);
+            opacity: 1;
+            visibility: visible;
+        }
+        40% {
+            transform: translateY(0px);
+            opacity: 1;
+            visibility: visible;
+            width: 160px;
+            height: 0px;
+        }
+        @media (min-width: 768px) {
+            40% {
+                width: 200px;
+            }
+        }
+        50%,100% {
+            transform: translateY(0px);
+            opacity: 1;
+            visibility: visible;
+            width: 160px;
+            height: 30px;
+        }
+        @media (min-width: 768px) {
+            50%,100% {
+                width: 200px;
+                height: 35px;
+            }
+        }
+    }
+    
+    /* تحسينات اسم صاحب العيد ميلاد */
+    .name{
+        position: absolute;
+        padding: 0px 8px;
+        bottom: 0px; /* جعل الاسم أقرب من الدائرة */
+        border: 2px solid var(--color-black);
+        height: 25px;
+    }
+    .date__of__birth span, .name span{
+        font-weight: bold;
+        margin: 0px 5px;
+        font-size: 0.7rem;
+    }
+    .date__of__birth span{
+        font-size: 0.75rem;
+    }
+    @media (min-width: 768px) {
+        .date__of__birth span {
+            font-size: 0.85rem;
+        }
+    }
+    .name span{
+        font-size: 0.75rem;
+    }
+    @media (min-width: 768px) {
+        .name span {
+            font-size: 0.9rem;
+        }
+    }
+    
+    .right .box__account{
+        position: relative;
+        transform: translateY(300px);
+        animation: topBoxImage 8s 7s forwards ease-in;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+    }
+    @keyframes topBoxImage{
+        to{
+            transform: translateY(0);
+        }
+    }
+    .content .right .image{
+        position: relative;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        border: 3px solid var(--color-black);
+        max-width: 80%;
+    }
+    @media (min-width: 768px) {
+        .content .right .image {
+            width: 180px;
+            height: 180px;
+        }
+    }
+    .content .right .image img{
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    /* تحسينات دائرة النص الدوارة - تصغيرها */
+    .cricle{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0);
+        animation: scaleCricle 3s 15s forwards ease-in-out;
+    }
+    @media (min-width: 768px) {
+        .cricle {
+            top: 20px;
+            right: 20px;
+        }
+    }
+    @keyframes scaleCricle {
+        0%{
+            transform: scale(0);
+        }
+        10%{
+            transform: scale(1.3);
+        }
+        20%{
+            transform: scale(0.7);
+        }
+        30%,100%{
+            transform: scale(1);
+        }
+    }
+    .text__cricle{
+        width: 50px; /* تصغير حجم الدائرة أكثر */
+        height: 50px;
+        background-color: var(--color-text-pink);
+        border-radius: 50%;
+        border: 2px solid var(--color-black);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: rotateCricle 3s linear infinite; /* زيادة سرعة الدوران */
+        position: relative;
+    }
+    @media (min-width: 768px) {
+        .text__cricle {
+            width: 65px; /* تصغير حجم الدائرة للشاشات الكبيرة */
+            height: 65px;
+        }
+    }
+    @keyframes rotateCricle{
+        to{
+            transform: rotate(360deg);
+        }
+    }
+    /* تحسين دوران النص حول القلب */
+    .text__cricle span{
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform-origin: 0 100%;
+        color: var(--color-black);
+        font-family: "Sriracha", cursive;
+        text-transform: uppercase;
+        font-size: 0.35rem; /* تصغير حجم الخط أكثر */
+        width: max-content;
+        height: 25px; /* تصغير الارتفاع أكثر */
+        transform: rotate(calc(var(--i) * 24deg));
+        text-align: center;
+        font-weight: bold; /* جعل النص أكثر وضوحاً */
+    }
+    @media (min-width: 768px) {
+        .text__cricle span {
+            font-size: 0.4rem; /* تصغير حجم الخط للشاشات الكبيرة */
+            height: 32.5px;
+        }
+    }
+    
+    .fa-heart{
+        color: var(--color-heart);
+        filter: drop-shadow(0 0 3px var(--color-heart));
+        animation: scaleHeart 1s infinite linear;
+    }
+    .cricle .fa-heart{
+        position: absolute;
+        transform: scale(0.4); /* تصغير القلب أكثر */
+    }
+    @keyframes scaleHeart{
+        50%{
+            transform: scale(1.1);
+        }
+    }
+    
+    .right .balloon_one{
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        animation: balloon1 2s infinite linear;
+        width: 35px;
+    }
+    @media (min-width: 768px) {
+        .right .balloon_one {
+            top: -15px;
+            left: -15px;
+            width: 45px;
+        }
+    }
+    @keyframes balloon1{
+        0%, 50%,100%{
+            transform-origin: bottom right;
+            transform: rotate(0deg);
+        }
+        25%{
+            transform-origin: bottom right;
+            transform: rotate(3deg);
+        }
+        75%{
+            transform-origin: bottom right;
+            transform: rotate(-3deg);
+        }
+    }
+    .right .balloon_two{
+        position: absolute;
+        top: 35px;
+        right: -12px;
+        z-index: -1;
+        transform: rotate(10deg);
+        animation: balloon2 2s infinite linear;
+        width: 35px;
+    }
+    @media (min-width: 768px) {
+        .right .balloon_two {
+            top: 50px;
+            right: -15px;
+            width: 45px;
+        }
+    }
+    @keyframes balloon2 {
+        0%,50%,100%{
+            transform-origin: bottom left;
+            transform: rotate(10deg);
+        }
+        25%{
+            transform-origin: bottom left;
+            transform: rotate(7deg);
+        }
+        75%{
+            transform-origin: bottom left;
+            transform: rotate(13deg);
+        }
+    }
+
+    .decorate_star{
+        position: absolute;
+        transform: scale(0);
+        background-color: var(--color-black);
+        clip-path: polygon(0 50%, 35% 35%, 50% 0, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%);
+        animation: scaleCricle 3s var(--t) forwards, 
+                scaleStar 2s 16s infinite ease-in-out;
+    }
+    .decorate_star.star1{
+        width: 7px;
+        height: 7px;
+        top: 20px;
+        left: 5%;
+    }
+    @media (min-width: 768px) {
+        .decorate_star.star1 {
+            width: 10px;
+            height: 10px;
+            top: 35px;
+            left: 10%;
+        }
+    }
+    .decorate_star.star2{
+        width: 5px;
+        height: 5px;
+        top: 10px;
+        right: 5%;
+    }
+    @media (min-width: 768px) {
+        .decorate_star.star2 {
+            width: 8px;
+            height: 8px;
+            top: 15px;
+            right: 10%;
+        }
+    }
+    .decorate_star.star3{
+        width: 4px;
+        height: 4px;
+        top: 40%;
+        left: 50%;
+    }
+    @media (min-width: 768px) {
+        .decorate_star.star3 {
+            width: 7px;
+            height: 7px;
+            top: 45%;
+            left: 55%;
+        }
+    }
+    .decorate_star.star4{
+        width: 6px;
+        height: 6px;
+        bottom: 20px;
+        left: 5%;
+    }
+    @media (min-width: 768px) {
+        .decorate_star.star4 {
+            width: 9px;
+            height: 9px;
+            bottom: 25px;
+            left: 10%;
+        }
+    }
+    .decorate_star.star5{
+        width: 5px;
+        height: 5px;
+        bottom: 20%;
+        left: 60%;
+    }
+    @media (min-width: 768px) {
+        .decorate_star.star5 {
+            width: 8px;
+            height: 8px;
+            bottom: 25%;
+            left: 65%;
+        }
+    }
+    @keyframes scaleStar {
+        25%{
+            transform: scale(0.8);
+        }
+        50%{
+            transform: scale(1.1);
+        }
+    }
+    .decorate_bottom{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 45px;
+    }
+    @media (min-width: 768px) {
+        .decorate_bottom {
+            width: 55px;
+        }
+    }
+    .decorate_flower--one{
+        position: absolute;
+        top: 30%;
+        left: 5%;
+        transform: scale(0);
+        animation: scaleCricle 3s var(--t) forwards ease-in-out;
+        width: 10px;
+    }
+    @media (min-width: 768px) {
+        .decorate_flower--one {
+            top: 35%;
+            left: 8%;
+            width: 13px;
+        }
+    }
+    .decorate_flower--two{
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: scale(0);
+        animation: scaleCricle 3s var(--t) forwards ease-in-out;
+        width: 10px;
+    }
+    @media (min-width: 768px) {
+        .decorate_flower--two {
+            top: 30%;
+            left: 55%;
+            width: 13px;
+        }
+    }
+    .decorate_flower--three{
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        transform: scale(0);
+        animation: scaleCricle 3s var(--t) forwards ease-in-out;
+        width: 10px;
+    }
+    @media (min-width: 768px) {
+        .decorate_flower--three {
+            top: 25%;
+            right: 8%;
+            width: 13px;
+        }
+    }
+    .smiley__icon{
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        animation: scaleCricle 3s 15s forwards ease-in-out;
+        width: 45px;
+    }
+    @media (min-width: 768px) {
+        .smiley__icon {
+            bottom: 25%;
+            width: 55px;
+        }
+    }
+
+    .box__letter{
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.5);
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        display: none;
+    }
+    .box__letter .letter__border{
+        position: absolute;
+        width: 90vw;
+        height: 80vh;
+        max-height: 500px;
+        background-color: var(--color-white);
+        border-radius: 20px;
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: none;
+        max-width: 95%;
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .box__letter .letter__border {
+            width: 70vw;
+            height: 60vh;
+            padding: 15px;
+        }
+    }
+    .letter__border .close{
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        width: 25px;
+        height: 25px;
+        background-color: var(--color-white);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        cursor: pointer;
+        font-size: 14px;
+        z-index: 10001;
+        transition: all 0.2s ease;
+    }
+    .letter__border .close:active {
+        transform: scale(0.9); /* تأثير الضغط الموحد */
+    }
+    .letter__border .letter{
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-bg-letter);
+        border-radius: 10px;
+        padding-top: 10px;
+        box-sizing: border-box;
+    }
+    .letter__border .letter .title__letter{
+        text-align: center;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    @media (min-width: 768px) {
+        .letter__border .letter .title__letter {
+            font-size: 1.5rem;
+        }
+    }
+    .title__letter .fa-solid{
+        margin-left: 5px;
+        font-size: 0.9rem;
+    }
+    @media (min-width: 768px) {
+        .title__letter .fa-solid {
+            font-size: 1.1rem;
+        }
+    }
+    .letter__border .letter .content__letter{
+        position: relative;
+        width: 100%;
+        height: calc(100% - 40px);
+        display: flex;
+        flex-direction: column;
+        padding-top: 0.5rem;
+        padding-bottom: 15px;
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .letter__border .letter .content__letter {
+            flex-direction: row;
+            padding-top: 1rem;
+            padding-bottom: 20px;
+        }
+    }
+    .letter__border .letter .content__letter .left{
+        position: relative;
+        width: 100%;
+        height: 40%;
+        padding: 0.8rem;
+        border-right: none;
+        border-bottom: 2px solid var(--color-border);
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .letter__border .letter .content__letter .left {
+            width: 50%;
+            height: 100%;
+            padding: 1.2rem;
+            border-right: 2px solid var(--color-border);
+            border-bottom: none;
+        }
+    }
+    .content__letter .left #heart__letter{
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    #heart__letter.animationOp{
+        animation: opacityHeart 1s 1s forwards;
+    }
+    @keyframes opacityHeart{
+        to{
+            opacity: 1;
+        }
+    }
+    .content__letter .left .heart{
+        position: absolute;
+        opacity: 0;
+        width: 10px;
+    }
+    .content__letter .left .heart.animation{
+        animation: scaleHeartLetter 1s var(--t) infinite ease-in-out;
+    }
+    @keyframes scaleHeartLetter{
+        0%{
+            opacity: 1;
+            transform: scale(0);
+        }
+        10%{
+            opacity: 1;
+            transform: scale(1.3);
+        }
+        20%{
+            opacity: 1;
+            transform: scale(0.7);
+        }
+        30%,100%{
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    .content__letter .left .heart_1{
+        top: 12px;
+        left: 10px;
+    }
+    @media (min-width: 768px) {
+        .content__letter .left .heart_1 {
+            top: 35px;
+            left: 15px;
+        }
+    }
+    .content__letter .left .heart_2{
+        top: 6px;
+        right: 20px;
+    }
+    @media (min-width: 768px) {
+        .content__letter .left .heart_2 {
+            top: 12px;
+            right: 35px;
+        }
+    }
+    .content__letter .left .heart_3{
+        bottom: 10px;
+        left: 50%;
+    }
+    @media (min-width: 768px) {
+        .content__letter .left .heart_3 {
+            bottom: 25px;
+            left: 45%;
+        }
+    }
+    .content__letter .left .heart_4{
+        top: 25px;
+        right: 10px;
+    }
+    @media (min-width: 768px) {
+        .content__letter .left .heart_4 {
+            top: 60px;
+            right: 15px;
+        }
+    }
+    .content__letter .right{
+        position: relative;
+        width: 100%;
+        height: 60%;
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .content__letter .right {
+            width: 50%;
+            height: 100%;
+        }
+    }
+    
+    .content__letter .right .text__letter{
+        margin-top: 12px;
+        padding: 5px 8px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 0.75rem;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+        .content__letter .right .text__letter {
+            margin-top: 25px;
+            padding: 10px 8px 6px 8px;
+            font-size: 0.85rem;
+            height: auto;
+        }
+    }
+    .content__letter .right #mewmew{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+        width: 35px;
+    }
+    @media (min-width: 768px) {
+        .content__letter .right #mewmew {
+            width: 50px;
+        }
+    }
+    #mewmew.animationOp{
+        animation: opacityHeart 1s 1s forwards;
+    }
+    
+    /* أزرار الإعدادات الجديدة */
+    .settings-controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .control-btn {
+        background-color: var(--color-text-pink);
+        border: 2px solid var(--color-black);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.2s ease;
+    }
+    .control-btn i {
+        font-size: 14px;
+        color: white;
+    }
+    .control-btn:hover {
+        background-color: var(--color-heart);
+    }
+    .control-btn:active {
+        transform: scale(0.9); /* تأثير الضغط الموحد */
+    }
+    .control-btn.active {
+        background-color: #4CAF50;
+    }
+    
+    /* زر التحكم في الصوت */
+    .music-controls {
+        position: relative;
+        background-color: var(--color-text-pink);
+        border: 2px solid var(--color-black);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.2s ease;
+    }
+    .music-controls i {
+        font-size: 14px;
+        color: white;
+    }
+    .music-controls:active {
+        transform: scale(0.9); /* تأثير الضغط الموحد */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- صفحة تدوير الهاتف -->
+  <div id="orientation-message">
+    <i class="fas fa-mobile-alt"></i>
+    <h2>Please Rotate Your Device</h2>
+    <p>For the best experience, please rotate your phone to landscape mode.</p>
+  </div>
+
+  <!-- صفحة الإعدادات -->
+  <div id="setup-screen">
+    <h2>Setup for Best Experience</h2>
+    <p>For the full birthday experience, please enable full screen mode. Music is optional but recommended for the full effect!</p>
+    
+    <div class="setup-buttons">
+      <button id="fullscreen-btn" class="setup-btn">
+        <i class="fas fa-expand"></i> Enable Full Screen
+      </button>
+      <button id="music-btn" class="setup-btn">
+        <i class="fas fa-music"></i> Play Music
+      </button>
+    </div>
+    
+    <button id="start-experience" class="setup-btn">
+      Start Celebration <i class="fas fa-birthday-cake"></i>
+    </button>
+  </div>
+
+  <!-- 👇 Your entire original content (untouched) -->
+  <!-- START -->
+  <div id="wrapper">
+    <!-- أزرار التحكم الجديدة -->
+    <div class="settings-controls" id="settings-controls" style="display: none;">
+      <div class="control-btn" id="fullscreen-control">
+        <i class="fas fa-expand"></i>
+      </div>
+      <!-- زر التحكم في الصوت - تم استبدال زر الموسيقى القديم -->
+      <div class="music-controls" id="music-volume-control">
+        <i class="fas fa-volume-up"></i>
+      </div>
+    </div>
+    
+    <div class="flag__birthday">
+      <img src="./images/1.png" alt="" class="flag__left">
+      <img src="./images/1.png" alt="" class="flag__right">
+    </div>
+
+    <div class="content">
+      <div class="left">
+        <div class="title">
+          <h1 class="happy">
+            <span style="--t: 4s;">H</span>
+            <span style="--t: 4.2s;">a</span>
+            <span style="--t: 4.4s;">p</span>
+            <span style="--t: 4.6s;">p</span>
+            <span style="--t: 4.8s;">y</span>
+          </h1>
+          <h1 class="birthday">
+            <span style="--t: 5s;">B</span>
+            <span style="--t: 5.2s;">i</span>
+            <span style="--t: 5.4s;">r</span>
+            <span style="--t: 5.6s;">t</span>
+            <span style="--t: 5.8s;">h</span>
+            <span style="--t: 6s;">d</span>
+            <span style="--t: 6.2s;">a</span>
+            <span style="--t: 6.4s;">y</span>
+          </h1>
+          <div class="hat">
+            <img src="./images/hat.png" alt="">
+          </div>
+        </div>
+
+        <div class="date__of__birth">
+          <span></span>
+        </div>
+
+        <div class="btn">
+          <button id="btn__letter">
+            Click here 
+            <i class="fa-regular fa-envelope"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="box__account">
+          <div class="image">
+            <img src="./images/r5.jpg" alt="">
+          </div>
+          <div class="name">
+            <i class="fa-solid fa-heart"></i>
+            <span>Name</span>
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="balloon_one">
+            <img src="./images/balloon1.png" alt="">
+          </div>
+          <div class="balloon_two">
+            <img src="./images/balloon2.png" alt="">
+          </div>
+        </div>
+
+        <div class="cricle">
+          <div class="text__cricle">
+            <span style="--i: 1;">h</span>
+            <span style="--i: 2;">a</span>
+            <span style="--i: 3;">p</span>
+            <span style="--i: 4;">p</span>
+            <span style="--i: 5;">y</span>
+            <span style="--i: 6;">-</span>
+            <span style="--i: 7;">b</span>
+            <span style="--i: 8;">i</span>
+            <span style="--i: 9;">r</span>
+            <span style="--i: 10;">t</span>
+            <span style="--i: 11;">h</span>
+            <span style="--i: 12;">d</span>
+            <span style="--i: 13;">a</span>
+            <span style="--i: 14;">y</span>
+            <span style="--i: 15;">-</span>
+          </div>
+          <i class="fa-solid fa-heart"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="decorate_star star1" style="--t: 15s;"></div>
+    <div class="decorate_star star2" style="--t: 15.2s;"></div>
+    <div class="decorate_star star3" style="--t: 15.4s;"></div>
+    <div class="decorate_star star4" style="--t: 15.6s;"></div>
+    <div class="decorate_star star5" style="--t: 15.8s;"></div>
+
+    <div class="decorate_flower--one" style="--t: 15s;">
+      <img src="./images/decorate_flower.png" alt="">
+    </div>
+    <div class="decorate_flower--two" style="--t: 15.3s;">
+      <img src="./images/decorate_flower.png" alt="">
+    </div>
+    <div class="decorate_flower--three" style="--t: 15.6s;">
+      <img src="./images/decorate_flower.png" alt="">
+    </div>
+
+    <div class="decorate_bottom">
+      <img src="./images/decorate.png" alt="">
+    </div>
+    <div class="smiley__icon">
+      <img src="./images/smiley_icon.png" alt="">
+    </div>
+
+    <!-- Letter Box -->
+    <div class="box__letter">
+      <div class="letter__border">
+        <div class="letter">
+          <div class="title__letter"></div>
+          <div class="content__letter">
+            <div class="left">
+              <!-- تم تكبير الـ GIF هنا -->
+              <img id="heart__letter" src="https://media4.giphy.com/media/W4jyjmIpnw6e38B6Qc/giphy.gif" alt="">
+              <img class="heart heart_1" style="--t: 0.2s" src="./images/heart.png" alt="">
+              <img class="heart heart_2" style="--t: 0.4s" src="./images/heart.png" alt="">
+              <img class="heart heart_3" style="--t: 0.6s" src="./images/heart.png" alt="">
+              <img class="heart heart_4" style="--t: 0.8s" src="./images/heart.png" alt="">
+            </div>
+            <div class="right">
+              <!-- تم حذف الـ GIF الثاني -->
+              <div class="text__letter">
+                <p></p>
+              </div>
+              <img id="mewmew" src="./images/mewmew.gif" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="close">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- الصوت -->
+  <audio id="birthday-music" loop preload="auto">
+    <source src="./music/birthday-song.mp3" type="audio/mpeg">
+    <source src="./music/birthday-song.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- النص البرمجي المحدث -->
+  <script>
+    // حالة الإعدادات
+    let fullscreenEnabled = false;
+    let musicEnabled = false;
+    let setupCompleted = false;
+    
+    // كشف اتجاه الشاشة
+    function checkOrientation() {
+      if (window.innerHeight > window.innerWidth) {
+        // الوضع العمودي
+        document.getElementById('orientation-message').style.display = 'flex';
+        document.getElementById('setup-screen').style.display = 'none';
+        document.getElementById('wrapper').style.display = 'none';
+      } else {
+        // الوضع الأفقي
+        document.getElementById('orientation-message').style.display = 'none';
+        
+        // إذا لم تكتمل الإعدادات بعد، اعرض شاشة الإعدادات
+        if (!setupCompleted) {
+          document.getElementById('setup-screen').style.display = 'flex';
+          document.getElementById('wrapper').style.display = 'none';
+        } else {
+          document.getElementById('setup-screen').style.display = 'none';
+          document.getElementById('wrapper').style.display = 'block';
+          // إظهار أزرار التحكم بعد بدء التجربة
+          document.getElementById('settings-controls').style.display = 'flex';
+        }
+      }
+    }
+    
+    // التحقق عند التحميل وعند تغيير حجم النافذة
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    
+    // زر وضع الشاشة الكاملة
+    document.getElementById('fullscreen-btn').addEventListener('click', function() {
+      toggleFullscreen();
+    });
+    
+    // زر تشغيل الموسيقى
+    document.getElementById('music-btn').addEventListener('click', function() {
+      toggleMusic();
+    });
+    
+    // بدء التجربة
+    document.getElementById('start-experience').addEventListener('click', function() {
+      setupCompleted = true;
+      document.getElementById('setup-screen').style.display = 'none';
+      document.getElementById('wrapper').style.display = 'block';
+      // إظهار أزرار التحكم
+      document.getElementById('settings-controls').style.display = 'flex';
+    });
+    
+    // أزرار التحكم الجديدة
+    document.getElementById('fullscreen-control').addEventListener('click', function() {
+      toggleFullscreen();
+    });
+    
+    // زر التحكم في الصوت (Mute/Unmute)
+    document.getElementById('music-volume-control').addEventListener('click', function() {
+      toggleVolume();
+    });
+    
+    // وظيفة تبديل وضع الشاشة الكاملة
+    function toggleFullscreen() {
+      const element = document.documentElement;
+      const fullscreenControl = document.getElementById('fullscreen-control');
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+      
+      if (!document.fullscreenElement) {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+          element.webkitRequestfullscreen();
+        } else if (element.msRequestFullscreen) {
+          element.msRequestFullscreen();
+        }
+        fullscreenControl.classList.add('active');
+        if (fullscreenBtn) {
+          fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Disable Full Screen';
+          fullscreenBtn.style.backgroundColor = '#4CAF50';
+        }
+        fullscreenEnabled = true;
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        fullscreenControl.classList.remove('active');
+        if (fullscreenBtn) {
+          fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Enable Full Screen';
+          fullscreenBtn.style.backgroundColor = '';
+        }
+        fullscreenEnabled = false;
+      }
+    }
+    
+    // وظيفة تبديل الموسيقى
+    function toggleMusic() {
+      const music = document.getElementById('birthday-music');
+      const musicBtn = document.getElementById('music-btn');
+      
+      if (music.paused) {
+        const playPromise = music.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // نجح تشغيل الموسيقى
+            if (musicBtn) {
+              musicBtn.innerHTML = '<i class="fas fa-pause"></i> Stop Music';
+              musicBtn.style.backgroundColor = '#4CAF50';
+            }
+            musicEnabled = true;
+          }).catch(error => {
+            console.error('Music playback failed:', error);
+            alert('Music file not found or cannot be played. You can continue without music.');
+          });
+        }
+      } else {
+        music.pause();
+        if (musicBtn) {
+          musicBtn.innerHTML = '<i class="fas fa-music"></i> Play Music';
+          musicBtn.style.backgroundColor = '';
+        }
+        musicEnabled = false;
+      }
+    }
+    
+    // وظيفة تبديل الصوت (Mute/Unmute)
+    function toggleVolume() {
+      const music = document.getElementById('birthday-music');
+      const volumeControl = document.getElementById('music-volume-control');
+      const icon = volumeControl.querySelector('i');
+      
+      // تأكد من أن الموسيقى تعمل أولاً
+      if (music.paused) {
+        const playPromise = music.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // نجح تشغيل الموسيقى
+            musicEnabled = true;
+          }).catch(error => {
+            console.error('Music playback failed:', error);
+          });
+        }
+      }
+      
+      if (music.muted) {
+        music.muted = false;
+        volumeControl.classList.remove('active');
+        icon.className = 'fas fa-volume-up';
+      } else {
+        music.muted = true;
+        volumeControl.classList.add('active');
+        icon.className = 'fas fa-volume-mute';
+      }
+    }
+    
+    // التعامل مع الخروج من وضع الشاشة الكاملة
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    
+    function handleFullscreenChange() {
+      const fullscreenControl = document.getElementById('fullscreen-control');
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+      
+      if (!document.fullscreenElement) {
+        fullscreenControl.classList.remove('active');
+        if (fullscreenBtn) {
+          fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Enable Full Screen';
+          fullscreenBtn.style.backgroundColor = '';
+        }
+        fullscreenEnabled = false;
+      } else {
+        fullscreenControl.classList.add('active');
+        if (fullscreenBtn) {
+          fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Disable Full Screen';
+          fullscreenBtn.style.backgroundColor = '#4CAF50';
+        }
+        fullscreenEnabled = true;
+      }
+    }
+
+    // النص الأصلي للموقع
+    let datetxt = "06 March 1998";
+    let datatxtletter = "You are a very special girl. Today, I wish you all the best, lots of health, and lots of joy.  I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
+    let titleLetter = "To you";
+    let charArrDate = datetxt.split('');
+    let charArrDateLetter = datatxtletter.split('');
+    let charArrTitle = titleLetter.split('');
+    let currentIndex = 0;
+    let currentIndexLetter = 0;
+    let currentIndexTitle = 0;
+    let date__of__birth = document.querySelector(".date__of__birth span");
+    let text__letter = document.querySelector(".text__letter p");
+
+    // تحسين ظهور تاريخ الميلاد لجعله أكثر سلاسة
+    setTimeout(function(){
+      timeDatetxt = setInterval(function(){
+        if(currentIndex < charArrDate.length){
+          date__of__birth.textContent += charArrDate[currentIndex];
+          currentIndex++;
+        } else {
+          let i = document.createElement("i");
+          i.className = "fa-solid fa-star";
+          document.querySelector(".date__of__birth").prepend(i);
+          document.querySelector(".date__of__birth").appendChild(i.cloneNode(true));
+          clearInterval(timeDatetxt);
+        }
+      },50) // جعل ظهور التاريخ أسرع
+    },10000); // بدء ظهور التاريخ في وقت أبكر
+
+    var intervalContent;
+    var intervalTitle;
+    $("#btn__letter").on("click", function(){
+      $(".box__letter").slideDown();
+      setTimeout(function(){
+        $(".letter__border").slideDown();
+      },1000);
+      setTimeout(function(){
+        intervalTitle = setInterval(function(){
+          if(currentIndexTitle < charArrTitle.length){
+            document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+            let i = document.createElement("i");
+            i.className = "fa-solid fa-heart";
+            document.querySelector(".title__letter").appendChild(i);
+            currentIndexTitle++;
+          } else {
+            clearInterval(intervalTitle);
+          }
+        },100);
+      },2000);
+      setTimeout(function(){
+        document.querySelector("#heart__letter").classList.add("animationOp");
+        document.querySelector("#mewmew").classList.add("animationOp");
+      },2800);
+      setTimeout(function(){
+        document.querySelectorAll(".heart").forEach((item)=>{
+          item.classList.add("animation");
+        })
+      },3500);
+      setTimeout(function(){
+        intervalContent = setInterval(function(){
+          if(currentIndexLetter < charArrDateLetter.length){
+            text__letter.textContent += charArrDateLetter[currentIndexLetter];
+            currentIndexLetter++;
+          } else {
+            clearInterval(intervalContent);
+          }
+        },30); // جعل ظهور نص الرسالة أسرع
+      },4000); // بدء ظهور نص الرسالة في وقت أبكر
+    });
+
+    $(".close").on("click", function(){
+      clearInterval(intervalContent);
+      document.querySelector(".title__letter").textContent = "";
+      text__letter.textContent = "";
+      currentIndexLetter = 0;
+      currentIndexTitle = 0;
+      document.querySelector("#heart__letter").classList.remove("animationOp");
+      document.querySelector("#mewmew").classList.remove("animationOp");
+      document.querySelectorAll(".heart").forEach((item)=>{
+        item.classList.remove("animation");
+      });
+      $(".box__letter").slideUp();
+      $(".letter__border").slideUp();
+    });
+  </script>
+</body>
+</html>
