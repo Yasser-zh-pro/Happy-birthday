@@ -171,9 +171,6 @@
         z-index: 10000;
         position: relative;
     }
-    .setup-btn:hover {
-        background-color: var(--color-heart);
-    }
     .setup-btn:active {
         transform: scale(0.95);
     }
@@ -453,9 +450,7 @@
         font-size: 12px;
     }
     #btn__letter:hover{
-        border-color: var(--color-heart);
-        background-color: var(--color-heart);
-        color: #fff;
+        background-color: var(--color-text-pink);
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 
@@ -1055,7 +1050,7 @@
         transition: all 0.2s ease;
     }
     .letter__border .close:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
     .letter__border .letter{
         width: 100%;
@@ -1275,11 +1270,8 @@
         font-size: 14px;
         color: white;
     }
-    .control-btn:hover {
-        background-color: var(--color-heart);
-    }
     .control-btn:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
     .control-btn.active {
         background-color: #4CAF50;
@@ -1305,33 +1297,17 @@
         color: white;
     }
     .music-controls:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
     
     /* أنيميشن النقر للعناصر التفاعلية */
     .clickable {
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
     
     .clickable:active {
         transform: scale(0.95);
-    }
-    
-    .bounce-effect {
-        animation: bounce 0.5s ease;
-    }
-    
-    @keyframes bounce {
-        0%, 20%, 60%, 100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-10px);
-        }
-        80% {
-            transform: translateY(-5px);
-        }
     }
   </style>
 </head>
@@ -1798,24 +1774,6 @@
         $(".letter__border").slideUp();
       });
     }
-
-    // إضافة تأثير النقر للعناصر التفاعلية
-    document.addEventListener('DOMContentLoaded', function() {
-      // إضافة تأثير النقر لجميع العناصر ذات class "clickable"
-      const clickableElements = document.querySelectorAll('.clickable');
-      
-      clickableElements.forEach(element => {
-        element.addEventListener('click', function(e) {
-          // إضافة تأثير bounce
-          this.classList.add('bounce-effect');
-          
-          // إزالة class بعد انتهاء الأنيميشن
-          setTimeout(() => {
-            this.classList.remove('bounce-effect');
-          }, 500);
-        });
-      });
-    });
   </script>
 </body>
 </html>
