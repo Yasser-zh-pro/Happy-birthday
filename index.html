@@ -230,9 +230,11 @@
         height: 100%;
         pointer-events: none;
         z-index: 10;
+        /* معالجة النتوءات والـ notch */
+        padding-top: env(safe-area-inset-top, 0px);
     }
     
-    /* الشريط الأيسر - ملتصق تماماً بالحافة العلوية */
+    /* الشريط الأيسر - ملتصق تماماً بالحافة العلوية مع تحسينات */
     .ribbon-left {
         position: absolute;
         top: 0;
@@ -242,16 +244,18 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
+        /* إخراج جزء من الشريط خارج الشاشة لمظهر واقعي */
+        transform: translateY(-15%) rotate(-8deg);
     }
     
     .ribbon-left img {
         width: 100%;
         height: 100%;
         object-fit: contain;
-        transform: rotate(0deg);
+        display: block;
     }
     
-    /* الشريط الأيمن - ملتصق تماماً بالحافة العلوية */
+    /* الشريط الأيمن - ملتصق تماماً بالحافة العلوية مع تحسينات */
     .ribbon-right {
         position: absolute;
         top: 0;
@@ -261,13 +265,15 @@
         width: var(--ribbon-size);
         height: var(--ribbon-size);
         z-index: 10;
+        /* إخراج جزء من الشريط خارج الشاشة لمظهر واقعي */
+        transform: translateY(-15%) rotate(8deg) scaleX(-1);
     }
     
     .ribbon-right img {
         width: 100%;
         height: 100%;
         object-fit: contain;
-        transform: rotate(0deg) scaleX(-1);
+        display: block;
     }
     
     /* استجابة للشاشات الصغيرة */
@@ -276,6 +282,31 @@
         .ribbon-right {
             width: 25%;
             max-width: 80px;
+        }
+        
+        .ribbon-left {
+            transform: translateY(-12%) rotate(-6deg);
+        }
+        
+        .ribbon-right {
+            transform: translateY(-12%) rotate(6deg) scaleX(-1);
+        }
+    }
+    
+    /* للشاشات الصغيرة جداً */
+    @media (max-width: 480px) {
+        .ribbon-left,
+        .ribbon-right {
+            width: 30%;
+            max-width: 70px;
+        }
+        
+        .ribbon-left {
+            transform: translateY(-10%) rotate(-5deg);
+        }
+        
+        .ribbon-right {
+            transform: translateY(-10%) rotate(5deg) scaleX(-1);
         }
     }
     
@@ -628,23 +659,25 @@
         }
     }
     
-    /* البالونات */
+    /* ====== تحسين تموضع العناصر الزخرفية على الصورة ====== */
+    
+    /* البالونات - تحسين التموضع والتداخل */
     .balloon.balloon_one {
         position: absolute;
-        top: 5px;
+        top: -8px;
         right: -5px;
-        width: var(--balloon-size);
-        height: var(--balloon-size);
+        width: calc(var(--balloon-size) * 1.2);
+        height: calc(var(--balloon-size) * 1.2);
         animation: balloon1 2s infinite linear;
         z-index: 2;
     }
     
     .balloon.balloon_two {
         position: absolute;
-        top: 45px;
-        right: -10px;
-        width: var(--balloon-size);
-        height: var(--balloon-size);
+        top: 35px;
+        right: -12px;
+        width: calc(var(--balloon-size) * 1.1);
+        height: calc(var(--balloon-size) * 1.1);
         animation: balloon2 2s infinite linear;
         z-index: 2;
     }
@@ -653,6 +686,7 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
+        filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
     }
     
     @keyframes balloon1{
@@ -662,39 +696,45 @@
         }
         25%{
             transform-origin: bottom right;
-            transform: rotate(3deg);
+            transform: rotate(5deg);
         }
         75%{
             transform-origin: bottom right;
-            transform: rotate(-3deg);
+            transform: rotate(-5deg);
         }
     }
     
     @keyframes balloon2 {
         0%,50%,100%{
             transform-origin: bottom left;
-            transform: rotate(10deg);
+            transform: rotate(12deg);
         }
         25%{
             transform-origin: bottom left;
-            transform: rotate(7deg);
+            transform: rotate(8deg);
         }
         75%{
             transform-origin: bottom left;
-            transform: rotate(13deg);
+            transform: rotate(16deg);
         }
     }
     
-    /* الوجه المبتسم */
+    /* الوجه المبتسم - تحسين التموضع والتداخل */
     .smiley-face {
         position: absolute;
-        top: 5px;
-        left: 5px;
-        width: var(--smiley-size);
-        height: var(--smiley-size);
+        top: -5px;
+        left: -5px;
+        width: calc(var(--smiley-size) * 1.3);
+        height: calc(var(--smiley-size) * 1.3);
         z-index: 3;
-        animation: appearElement var(--elements-duration) var(--elements-delay) forwards;
+        animation: appearElement var(--elements-duration) var(--elements-delay) forwards, floatSmiley 3s infinite ease-in-out;
         opacity: 0;
+        filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.2));
+    }
+    
+    @keyframes floatSmiley {
+        0%, 100% { transform: translateY(0px) rotate(-5deg); }
+        50% { transform: translateY(-3px) rotate(5deg); }
     }
     
     .smiley-face img {
@@ -703,16 +743,22 @@
         object-fit: contain;
     }
     
-    /* فقاعة الكلام */
+    /* فقاعة الكلام - تحسين التموضع والتداخل */
     .speech-bubble {
         position: absolute;
-        top: 10px;
-        right: 5px;
-        width: var(--bubble-size);
-        height: var(--bubble-size);
+        top: -8px;
+        right: -8px;
+        width: calc(var(--bubble-size) * 1.4);
+        height: calc(var(--bubble-size) * 1.4);
         z-index: 3;
-        animation: appearElement var(--elements-duration) calc(var(--elements-delay) + 0.2s) forwards;
+        animation: appearElement var(--elements-duration) calc(var(--elements-delay) + 0.2s) forwards, pulseBubble 2s infinite ease-in-out;
         opacity: 0;
+        filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.2));
+    }
+    
+    @keyframes pulseBubble {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
     }
     
     .speech-bubble img {
@@ -760,24 +806,33 @@
             padding: 6px 12px;
         }
         
-        .smiley-face {
-            top: 3px;
-            left: 3px;
-        }
-        
-        .speech-bubble {
-            top: 8px;
-            right: 3px;
-        }
-        
+        /* تحسينات إضافية للعناصر على الشاشات الصغيرة */
         .balloon.balloon_one {
-            top: 3px;
-            right: -3px;
+            top: -6px;
+            right: -4px;
+            width: calc(var(--balloon-size) * 1.1);
+            height: calc(var(--balloon-size) * 1.1);
         }
         
         .balloon.balloon_two {
-            top: 40px;
+            top: 30px;
             right: -8px;
+            width: calc(var(--balloon-size) * 1.05);
+            height: calc(var(--balloon-size) * 1.05);
+        }
+        
+        .smiley-face {
+            top: -4px;
+            left: -4px;
+            width: calc(var(--smiley-size) * 1.2);
+            height: calc(var(--smiley-size) * 1.2);
+        }
+        
+        .speech-bubble {
+            top: -6px;
+            right: -6px;
+            width: calc(var(--bubble-size) * 1.3);
+            height: calc(var(--bubble-size) * 1.3);
         }
         
         .name {
@@ -794,6 +849,16 @@
         
         .name {
             bottom: -10px;
+        }
+        
+        .balloon.balloon_one {
+            top: -4px;
+            right: -3px;
+        }
+        
+        .balloon.balloon_two {
+            top: 25px;
+            right: -6px;
         }
     }
     
