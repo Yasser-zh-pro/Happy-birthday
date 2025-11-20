@@ -6,7 +6,6 @@
   <title>Happy Birthday Celebration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Coiny&family=Titan+One&display=swap');
@@ -261,7 +260,7 @@
         font-size: 20px;
         opacity: 0;
         animation: starAppear 1s var(--decorations-delay) forwards, starPulse 3s infinite alternate;
-        z-index: 1;
+        z-index: 0; /* تم تخفيض z-index */
     }
     
     @keyframes starAppear {
@@ -288,7 +287,7 @@
         font-size: 18px;
         opacity: 0;
         animation: flowerAppear 1s var(--decorations-delay) forwards;
-        z-index: 1;
+        z-index: 0; /* تم تخفيض z-index */
     }
     
     @keyframes flowerAppear {
@@ -349,53 +348,31 @@
         }
     }
     
-    /* التوهج الوردي حول الصورة */
+    /* التوهج الوردي حول الصورة - تم التعديل */
     .image-glow {
         position: absolute;
         width: 110%;
         height: 110%;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,182,193,0.4) 0%, rgba(255,105,180,0.2) 30%, transparent 70%);
-        z-index: 0;
+        background: radial-gradient(circle, rgba(255,182,193,0.6) 0%, rgba(255,105,180,0.4) 30%, transparent 70%);
+        z-index: -1; /* تم تعديل z-index */
         animation: glowPulse 3s infinite alternate;
         pointer-events: none;
+        filter: blur(5px);
     }
     
     @keyframes glowPulse {
         0% {
-            opacity: 0.3;
+            opacity: 0.4;
             transform: scale(1);
         }
-        100% {
-            opacity: 0.6;
+        50% {
+            opacity: 0.7;
             transform: scale(1.05);
         }
-    }
-    
-    /* الفراشة */
-    #butterfly {
-        position: fixed;
-        top: 20%;
-        right: 10%;
-        width: 120px;
-        height: 120px;
-        z-index: 5;
-        pointer-events: none;
-        animation: butterflyFloat 8s infinite ease-in-out;
-    }
-    
-    @keyframes butterflyFloat {
-        0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-        }
-        25% {
-            transform: translateY(-20px) rotate(5deg);
-        }
-        50% {
-            transform: translateY(0px) rotate(0deg);
-        }
-        75% {
-            transform: translateY(15px) rotate(-5deg);
+        100% {
+            opacity: 0.5;
+            transform: scale(1.02);
         }
     }
     
@@ -481,12 +458,6 @@
         .ribbon-right {
             transform: translateY(-25%) rotate(6deg) scaleX(-1);
         }
-        
-        #butterfly {
-            width: 80px;
-            height: 80px;
-            right: 5%;
-        }
     }
     
     /* للشاشات الصغيرة جداً */
@@ -503,11 +474,6 @@
         
         .ribbon-right {
             transform: translateY(-20%) rotate(5deg) scaleX(-1);
-        }
-        
-        #butterfly {
-            width: 60px;
-            height: 60px;
         }
     }
     
@@ -1550,9 +1516,6 @@
         <i class="fas fa-volume-up"></i>
       </div>
     </div>
-    
-    <!-- الفراشة المتحركة -->
-    <dotlottie-player id="butterfly" src="https://lottie.host/a1f5ee32-aa6d-4d5b-9609-f0c649d2ddd6/2bOtzewBRC.lottie" background="transparent" speed="1" loop autoplay></dotlottie-player>
     
     <!-- شريط الزينة المثلثي في الأعلى -->
     <div class="ribbon-container">
